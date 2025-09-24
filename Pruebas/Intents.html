@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Intents - Tabla</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 20px; background:#f7f7f7; }
+    table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    th, td { padding: 10px 12px; border: 1px solid #e6e6e6; vertical-align: top; text-align: left; font-size: 14px; }
+    th { background: #0f172a; color: #fff; position: sticky; top: 0; z-index: 2; }
+    tr:nth-child(even) td { background: #fbfdff; }
+    pre { margin:0; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace; font-size:13px; }
+    .small { font-size:13px; color:#555; }
+  </style>
+</head>
+<body>
+  <h2>Tabla de intents (uri, after, before, feedback, learning, iterationId)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>uri</th>
+        <th>after</th>
+        <th>before</th>
+        <th>feedback</th>
+        <th>learning</th>
+        <th>iterationId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>intents/saludo</td>
+        <td>¡Hola! Soy tu asistente agrícola, ¿cómo puedo ayudarte hoy?</td>
+        <td>Hola bot</td>
+        <td>El saludo era muy corto, mejor hacerlo más cálido y explicativo.</td>
+        <td><pre>Cuando reciba un saludo simple debo dar una respuesta más cálida y completa.
+if user_input in ['hola','buenas']:
+    print('¡Hola! Soy tu asistente agrícola, ¿cómo puedo ayudarte hoy?')</pre></td>
+        <td>001</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_maiz</td>
+        <td>El maíz se adapta bien en suelos francos con pH 5.5 a 7.5. Puedes sembrar unas 55,000 plantas por hectárea.</td>
+        <td>Quiero sembrar maíz</td>
+        <td>La respuesta inicial era vaga, ahora es más precisa.</td>
+        <td><pre>Cuando un usuario pregunte por un cultivo debo incluir pH, suelo y densidad recomendada.
+res = 'El maíz se adapta a suelos francos con pH 5.5-7.5, siembra: 55k plantas/ha'</pre></td>
+        <td>002</td>
+      </tr>
+      <tr>
+        <td>intents/riego_arroz</td>
+        <td>El arroz necesita suelos encharcados al inicio y luego mantener humedad constante.</td>
+        <td>Cuánto riego necesita el arroz</td>
+        <td>La respuesta era muy técnica, ahora está en lenguaje sencillo.</td>
+        <td><pre>Debo explicar prácticas técnicas en un lenguaje natural y fácil.
+respuesta = 'El arroz requiere suelos húmedos o encharcados al inicio'</pre></td>
+        <td>003</td>
+      </tr>
+      <tr>
+        <td>intents/ph_platanos</td>
+        <td>El plátano crece mejor en pH 5.5 a 7 y suelos profundos con buena materia orgánica.</td>
+        <td>Cuál es el pH para plátanos</td>
+        <td>La respuesta inicial no incluía rango de pH.</td>
+        <td><pre>Siempre incluir valores numéricos en recomendaciones de pH.
+ph_range = '5.5 a 7.0'</pre></td>
+        <td>004</td>
+      </tr>
+      <tr>
+        <td>intents/abono_organico</td>
+        <td>Puedes aplicar compost o bocashi, unos 2-3 kg por planta.</td>
+        <td>Qué abono uso</td>
+        <td>La primera respuesta no especificaba cantidades.</td>
+        <td><pre>Dar cantidades aproximadas al recomendar fertilizantes.
+abono = '2-3 kg compost/planta'</pre></td>
+        <td>005</td>
+      </tr>
+      <tr>
+        <td>intents/manejo_plagas_maiz</td>
+        <td>Puedes usar control biológico como Bacillus thuringiensis y prácticas de rotación de cultivos.</td>
+        <td>Cómo controlo plagas en maíz</td>
+        <td>La primera sugerencia era química, ahora es más sostenible.</td>
+        <td><pre>Priorizar manejo integrado y biológico sobre químicos.
+control = 'Rotación + Bacillus thuringiensis'</pre></td>
+        <td>006</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_yuca</td>
+        <td>Siembra estacas de 20-25 cm, a 1 metro de distancia, unas 10,000 plantas/ha.</td>
+        <td>Cómo sembrar yuca</td>
+        <td>La respuesta ahora incluye densidad y método.</td>
+        <td><pre>Cuando hablen de siembra, dar medidas de estacas, distancia y densidad.
+plantas = 10000</pre></td>
+        <td>007</td>
+      </tr>
+      <tr>
+        <td>intents/riego_tomate</td>
+        <td>El tomate requiere riego por goteo frecuente, evitando exceso de humedad.</td>
+        <td>Riego para tomate</td>
+        <td>La versión anterior era muy general.</td>
+        <td><pre>Recomendar métodos modernos como riego por goteo.
+riego = 'goteo frecuente'</pre></td>
+        <td>008</td>
+      </tr>
+      <tr>
+        <td>intents/ph_arroz</td>
+        <td>El arroz se adapta en pH de 5 a 6.5.</td>
+        <td>pH arroz</td>
+        <td>Antes no incluía rango específico.</td>
+        <td><pre>Dar rangos claros de pH en cada cultivo.
+ph_arroz = '5 - 6.5'</pre></td>
+        <td>009</td>
+      </tr>
+      <tr>
+        <td>intents/rotacion_cultivos</td>
+        <td>Es alternar diferentes cultivos en un mismo terreno para evitar plagas y mejorar el suelo.</td>
+        <td>Qué es rotación de cultivos</td>
+        <td>La definición anterior era muy técnica.</td>
+        <td><pre>Explicar conceptos técnicos en lenguaje simple.
+def rotacion(): return 'alternar cultivos en el mismo terreno'</pre></td>
+        <td>010</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_pasto</td>
+        <td>En Córdoba se recomienda Brachiaria humidicola o Mombaza, 8-10 kg de semilla por ha.</td>
+        <td>Quiero sembrar pasto</td>
+        <td>Ahora es más regional y práctico.</td>
+        <td><pre>Dar variedades adaptadas a la región.
+semilla = '8-10kg/ha Mombaza'</pre></td>
+        <td>011</td>
+      </tr>
+      <tr>
+        <td>intents/abono_bocashi</td>
+        <td>Es un abono fermentado que mejora la fertilidad del suelo y se aplica 2-3 kg por planta.</td>
+        <td>Qué es bocashi</td>
+        <td>Antes faltaba dosis recomendada.</td>
+        <td><pre>Definir + dar dosis prácticas.
+uso_bocashi = '2-3 kg/planta'</pre></td>
+        <td>012</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_cafe</td>
+        <td>Usa plántulas en bolsas, siembra a 2x2 metros, 2500 plantas por ha.</td>
+        <td>Cómo sembrar café</td>
+        <td>La respuesta ahora es completa.</td>
+        <td><pre>Dar espaciamiento y densidad al explicar siembra.
+plantas_cafe = 2500</pre></td>
+        <td>013</td>
+      </tr>
+      <tr>
+        <td>intents/plaga_mosca_blanca</td>
+        <td>Usa trampas amarillas, jabón potásico y enemigos naturales como crisopas.</td>
+        <td>Cómo controlo mosca blanca</td>
+        <td>Se reemplazó el uso de químicos.</td>
+        <td><pre>Fomentar control agroecológico en lugar de químicos.
+control = 'trampas + jabón potásico'</pre></td>
+        <td>014</td>
+      </tr>
+      <tr>
+        <td>intents/ph_cacao</td>
+        <td>El cacao se adapta mejor en suelos con pH 6 a 7.</td>
+        <td>Cuál es el pH para cacao</td>
+        <td>La respuesta anterior era muy vaga.</td>
+        <td><pre>Siempre dar rango exacto para cacao.
+ph_cacao = '6 - 7'</pre></td>
+        <td>015</td>
+      </tr>
+      <tr>
+        <td>intents/abono_gallinaza</td>
+        <td>Sí, aplicada bien compostada mejora la materia orgánica del suelo.</td>
+        <td>Sirve la gallinaza</td>
+        <td>Antes no aclaraba compostaje necesario.</td>
+        <td><pre>Indicar que abonos deben compostarse antes de usar.
+uso = 'gallinaza compostada'</pre></td>
+        <td>016</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_sorgo</td>
+        <td>Siembra a 20 cm entre plantas y 70 cm entre hileras, 120,000 plantas por ha.</td>
+        <td>Sembrar sorgo</td>
+        <td>Se mejoró con datos concretos.</td>
+        <td><pre>Incluir distancias y densidad en cereales.
+plantas_sorgo = 120000</pre></td>
+        <td>017</td>
+      </tr>
+      <tr>
+        <td>intents/riego_cacao</td>
+        <td>El cacao requiere riegos ligeros y frecuentes en verano.</td>
+        <td>Riego cacao</td>
+        <td>Antes era muy general.</td>
+        <td><pre>Dar prácticas específicas según estación.
+riego_cacao = 'ligero y frecuente en verano'</pre></td>
+        <td>018</td>
+      </tr>
+      <tr>
+        <td>intents/manejo_suelo</td>
+        <td>Agrega materia orgánica, aplica cal si el pH es bajo y haz rotación de cultivos</td>
+        <td>Cómo mejorar suelo</td>
+        <td>Se amplió con más prácticas.</td>
+        <td><pre>Ofrecer varias opciones combinadas.
+mejora = ['materia orgánica','cal','rotación']</pre></td>
+        <td>019</td>
+      </tr>
+      <tr>
+        <td>intents/abono_compost</td>
+        <td>Es un abono orgánico hecho de desechos vegetales y estiércol fermentados</td>
+        <td>Qué es compost</td>
+        <td>Antes la definición era confusa.</td>
+        <td><pre>Dar definiciones claras y simples.
+compost = 'restos vegetales + estiércol fermentados'</pre></td>
+        <td>020</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_papaya</td>
+        <td>Planta a 2x2 metros, unas 2500 plantas por ha, requiere suelos francos</td>
+        <td>Sembrar papaya</td>
+        <td>Ahora tiene datos completos.</td>
+        <td class="small">Siempre dar espaciamiento, densidad y suelo recomendado.</td>
+        <td>021</td>
+      </tr>
+      <tr>
+        <td>intents/plaga_gusano_cogollero</td>
+        <td>Puedes usar extracto de neem o aplicar control biológico con parasitoides</td>
+        <td>Cómo controlo gusano en maíz</td>
+        <td>Antes sugería insecticida químico.</td>
+        <td><pre>Fomentar alternativas biológicas primero.
+control_gusano = 'neem + parasitoides'</pre></td>
+        <td>022</td>
+      </tr>
+      <tr>
+        <td>intents/ph_tomate</td>
+        <td>El tomate se adapta a pH 5.5 a 7</td>
+        <td>pH tomate</td>
+        <td>Antes no daba valores numéricos.</td>
+        <td><pre>Dar rango claro de pH en cada cultivo.
+ph_tomate = '5.5 - 7.0'</pre></td>
+        <td>023</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_sandia</td>
+        <td>Siembra a 2x2 metros, 2500 plantas por ha, requiere suelos bien drenados</td>
+        <td>Cómo sembrar sandía</td>
+        <td>Ahora es más detallada.</td>
+        <td><pre>Incluir drenaje como requisito en cucurbitáceas.
+sandia = '2500 plantas/ha'</pre></td>
+        <td>024</td>
+      </tr>
+      <tr>
+        <td>intents/riego_platano</td>
+        <td>El plátano necesita riego cada 8-10 días en sequía</td>
+        <td>Riego plátano</td>
+        <td>Antes no daba frecuencia.</td>
+        <td><pre>Dar frecuencia en días cuando hablen de riego.
+riego_platano = 'cada 8-10 días'</pre></td>
+        <td>025</td>
+      </tr>
+      <tr>
+        <td>intents/abono_vermicompost</td>
+        <td>Es abono hecho con lombrices rojas, rico en nutrientes, aplica 1-2 kg por planta</td>
+        <td>Qué es lombricompost</td>
+        <td>Se agregó dosis práctica.</td>
+        <td><pre>Siempre agregar dosis junto con definición.
+uso = '1-2kg/planta'</pre></td>
+        <td>026</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_mani</td>
+        <td>Siembra a 40 cm entre hileras, 180,000 plantas por ha, pH ideal 6</td>
+        <td>Siembra de maní</td>
+        <td>Ahora tiene datos técnicos.</td>
+        <td><pre>Dar densidad y pH recomendado.
+mani = '180k plantas/ha, pH 6'</pre></td>
+        <td>027</td>
+      </tr>
+      <tr>
+        <td>intents/manejo_maleza</td>
+        <td>Usa deshierbe manual, cobertura vegetal o mulching para evitar rebrote</td>
+        <td>Cómo quitar maleza</td>
+        <td>Antes recomendaba herbicida químico.</td>
+        <td><pre>Recomendar manejo agroecológico de maleza.
+control_maleza = 'mulching + deshierbe manual'</pre></td>
+        <td>028</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_ahuyama</td>
+        <td>Siembra a 2x1 metros, unas 5000 plantas por ha</td>
+        <td>Sembrar ahuyama</td>
+        <td>Ahora incluye densidad y espaciamiento.</td>
+        <td><pre>Dar datos completos en cucurbitáceas.
+ahuyama = '5000 plantas/ha'</pre></td>
+        <td>029</td>
+      </tr>
+      <tr>
+        <td>intents/abono_ceniza</td>
+        <td>Sí, como enmienda aporta potasio y ayuda a regular pH ácido</td>
+        <td>Sirve la ceniza</td>
+        <td>Antes no decía beneficios.</td>
+        <td><pre>Explicar siempre nutrientes principales que aporta un abono.
+uso_ceniza = 'aporta potasio + regula pH'</pre></td>
+        <td>030</td>
+      </tr>
+
+      <!-- Filas 31-50 (generadas para completar 50 registros) -->
+      <tr>
+        <td>intents/cultivo_cebada</td>
+        <td>Siembra en suelos bien drenados, 15-20 kg de semilla/ha, espaciamiento 20 cm entre hileras.</td>
+        <td>Sembrar cebada</td>
+        <td>Faltaban datos de densidad y suelo.</td>
+        <td><pre>Incluir semilla por hectárea y condiciones de suelo.
+semilla = '15-20 kg/ha'</pre></td>
+        <td>031</td>
+      </tr>
+      <tr>
+        <td>intents/ph_cebada</td>
+        <td>La cebada prefiere pH 6 a 7.5 para un buen desarrollo.</td>
+        <td>pH cebada</td>
+        <td>Antes no especificaba rango.</td>
+        <td class="small">Siempre incluir rango de pH.</td>
+        <td>032</td>
+      </tr>
+      <tr>
+        <td>intents/abono_estiércol</td>
+        <td>El estiércol es útil si está compostado; aplica 3-5 t/ha antes de la siembra.</td>
+        <td>Sirve estiércol?</td>
+        <td>No indicaba compostaje ni dosis.</td>
+        <td><pre>Indicar estado (compostado) y dosis por hectárea.
+dosis = '3-5 t/ha'</pre></td>
+        <td>033</td>
+      </tr>
+      <tr>
+        <td>intents/siembra_trigo</td>
+        <td>Trigo: siembra a 15-20 cm entre plantas, 120-200 kg/ha de semilla según variedad.</td>
+        <td>Cómo sembrar trigo</td>
+        <td>Antes no daba cantidad de semilla.</td>
+        <td><pre>Dar rango de semilla por hectárea según variedad.
+semilla_trigo = '120-200 kg/ha'</pre></td>
+        <td>034</td>
+      </tr>
+      <tr>
+        <td>intents/riego_fresas</td>
+        <td>Fresas: riego ligero y frecuente; mejor por goteo para evitar enfermedades foliares.</td>
+        <td>Riego fresas</td>
+        <td>Respuesta previa no mencionaba goteo.</td>
+        <td class="small">Recomendar método y motivo (enfermedades).</td>
+        <td>035</td>
+      </tr>
+      <tr>
+        <td>intents/control_mildiu</td>
+        <td>Controla mildiu con ventilación, poda sanitaria y aplicación preventiva de fungicidas biológicos.</td>
+        <td>Cómo controlo mildiu</td>
+        <td>La primera era sólo química.</td>
+        <td><pre>Priorizar prácticas culturales y biológicas antes de químicos.</pre></td>
+        <td>036</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_agucate</td>
+        <td>Planta a 6x6 m, requiere suelo profundo y buen drenaje; riego moderado.</td>
+        <td>Sembrar aguacate</td>
+        <td>Faltaba espaciamiento y requerimientos de suelo.</td>
+        <td class="small">Incluir espaciamiento y condiciones de suelo.</td>
+        <td>037</td>
+      </tr>
+      <tr>
+        <td>intents/ph_agucate</td>
+        <td>El aguacate prefiere pH 5.5 a 6.5 en suelos bien drenados.</td>
+        <td>pH aguacate</td>
+        <td>Antes no incluía drenaje junto al pH.</td>
+        <td><pre>Asociar pH con condiciones físicas del suelo.</pre></td>
+        <td>038</td>
+      </tr>
+      <tr>
+        <td>intents/abono_fosforo</td>
+        <td>Si el análisis muestra deficiencia, aplica fósforo según recomendación técnica; dosis típicas 50-80 kg P2O5/ha en suelos pobres.</td>
+        <td>Cuánto fósforo aplicar</td>
+        <td>La respuesta anterior no consideraba análisis de suelo.</td>
+        <td><pre>Recomendar siempre basarse en análisis de suelo y dar rangos cuando se solicite.</pre></td>
+        <td>039</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_banano</td>
+        <td>Banano: siembra a 3x3 m, suelos profundos con buen contenido de materia orgánica.</td>
+        <td>Cómo sembrar banano</td>
+        <td>Faltaba información de espaciamiento y suelo.</td>
+        <td class="small">Incluir espaciamiento y calidad de suelo.</td>
+        <td>040</td>
+      </tr>
+      <tr>
+        <td>intents/plaga_cercospora</td>
+        <td>Combate cercospora con rotación, eliminación de restos y uso de variedades resistentes cuando existan.</td>
+        <td>Cómo controlar cercospora</td>
+        <td>Antes proponía solo fungicidas.</td>
+        <td><pre>Proponer manejo integrado: cultural + genético antes de químico.</pre></td>
+        <td>041</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_olivo</td>
+        <td>Olivo: plantación 6x6 m, suelos con buen drenaje y exposición soleada.</td>
+        <td>Sembrar olivos</td>
+        <td>La respuesta era demasiado general.</td>
+        <td class="small">Añadir espaciamiento y requisitos de microclima.</td>
+        <td>042</td>
+      </tr>
+      <tr>
+        <td>intents/ph_olivo</td>
+        <td>Olivo tolera pH 6 a 8, pero crece mejor cerca de pH 7.</td>
+        <td>pH olivo</td>
+        <td>Antes no daba rango.</td>
+        <td><pre>Proveer rango y punto óptimo cuando sea relevante.</pre></td>
+        <td>043</td>
+      </tr>
+      <tr>
+        <td>intents/abono_bioestimulante</td>
+        <td>Los bioestimulantes mejoran vigor; aplicarlos según ficha técnica del producto y estado fenológico.</td>
+        <td>Cuándo usar bioestimulantes</td>
+        <td>La respuesta previa no mencionaba ficha técnica ni estado fenológico.</td>
+        <td class="small">Reforzar la importancia de seguir la ficha técnica del producto.</td>
+        <td>044</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_cebolla</td>
+        <td>Cebolla: espaciamiento 10-15 cm entre plantas, 200-300 kg/ha de semilla según método.</td>
+        <td>Cómo sembrar cebolla</td>
+        <td>Faltaban números concretos.</td>
+        <td><pre>Incluir espaciamiento y rango de semilla por ha según método.</pre></td>
+        <td>045</td>
+      </tr>
+      <tr>
+        <td>intents/riego_olivo</td>
+        <td>Olivo: riegos moderados e infrecuentes; evita encharcamiento.</td>
+        <td>Riego para olivo</td>
+        <td>Antes daba frecuencia imprecisa.</td>
+        <td class="small">Explicar patrón (moderado + evitar encharcar).</td>
+        <td>046</td>
+      </tr>
+      <tr>
+        <td>intents/manejo_hojas_secas</td>
+        <td>Retira hojas secas y realiza compostaje; evita dejar restos en contacto con plantas sanas.</td>
+        <td>Qué hacer con hojas secas</td>
+        <td>Respuesta anterior no trataba riesgo sanitario.</td>
+        <td><pre>Explicar tanto la opción útil (compost) como la precaución sanitaria.</pre></td>
+        <td>047</td>
+      </tr>
+      <tr>
+        <td>intents/cultivo_movistar</td>
+        <td> (Registro de ejemplo) Mantener prácticas de suelo y riego adaptadas a la especie solicitada.</td>
+        <td>Ejemplo genérico</td>
+        <td>Registro de ejemplo para plantillas.</td>
+        <td class="small">Usar como plantilla al generar nuevos intents.</td>
+        <td>048</td>
+      </tr>
+      <tr>
+        <td>intents/manejo_compostaje</td>
+        <td>Para compostar: mezclar materia verde y seca, mantener humedad y aireación; tiempo ~2-3 meses según condiciones.</td>
+        <td>Cómo hacer compost</td>
+        <td>Antes era vago en tiempos y proporciones.</td>
+        <td><pre>Dar pasos claros y rango temporal estimado.
+tiempo = '2-3 meses'</pre></td>
+        <td>049</td>
+      </tr>
+      <tr>
+        <td>intents/diagnostico_suelo</td>
+        <td>Se recomienda análisis de suelo anual para ajustar fertilización y enmiendas; toma de muestra representativa 20-30 submuestras por lote.</td>
+        <td>Necesito diagnóstico del suelo</td>
+        <td>La respuesta previa no decía cómo tomar muestra ni frecuencia.</td>
+        <td><pre>Incluir frecuencia (anual) y método simple para toma de muestra.</pre></td>
+        <td>050</td>
+      </tr>
+
+    </tbody>
+  </table>
+</body>
+</html>
